@@ -26,7 +26,7 @@ const rootDir = __dirname;
 
 @ServerSettings({
   rootDir,
-  httpPort: process.env.PORT || 8083,
+  httpPort: 4000,
   httpsPort: false,
   acceptMimes: ["application/json"],
   mount: {
@@ -45,12 +45,12 @@ const rootDir = __dirname;
   typeorm: [
     {
       name: "default",
-      type: "postgres",
-      host: process.env.POSTGRES_HOST || "localhost",
-      port: 5432,
-      username: process.env.POSTGRES_USER || "postgres",
-      password: process.env.POSTGRES_PASSWORD || "changeme",
-      database: process.env.POSTGRES_DB || "postgres",
+      type: "mysql",
+      host: "localhost",
+      port: 3306,
+      username: "root",
+      password: "",
+      database: "barber-app",
       logging: false,
       synchronize: true,
       entities: [
@@ -76,6 +76,7 @@ const rootDir = __dirname;
   }
 })
 export class Server extends ServerLoader {
+
   $beforeRoutesInit(): void | Promise<any> {
     this
       .use(GlobalAcceptMimesMiddleware)
@@ -87,19 +88,8 @@ export class Server extends ServerLoader {
       .use(bodyParser.urlencoded({
         extended: true
       }))
-      .use(session({
-        secret: "mysecretkey",
-        resave: true,
-        saveUninitialized: true,
-        // maxAge: 36000,
-        cookie: {
-          path: "/",
-          httpOnly: true,
-          secure: false,
-          maxAge: null
-        }
-      }));
 
     return null;
   }
+
 }
