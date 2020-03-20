@@ -15,5 +15,5 @@ export class DefaultEntity extends BaseEntity {
     updatedAt: Date;
 
     // Database..
-
 }
+

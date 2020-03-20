@@ -1,16 +1,8 @@
 import {
-  ConverterService,
-  EndpointInfo,
   GlobalAcceptMimesMiddleware,
-  IMiddleware,
-  OverrideProvider,
-  Res,
-  ResponseData,
-  SendResponseMiddleware,
   ServerLoader,
   ServerSettings
 } from "@tsed/common";
-import {isBoolean, isNumber, isStream, isString} from "@tsed/core";
 import "@tsed/passport";
 import "@tsed/swagger";
 import "@tsed/typeorm";
@@ -18,9 +10,7 @@ import * as bodyParser from "body-parser";
 import * as compress from "compression";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
-import * as session from "express-session";
 import * as methodOverride from "method-override";
-import {User} from "./entities/User";
 
 const rootDir = __dirname;
 
@@ -29,19 +19,12 @@ const rootDir = __dirname;
   httpPort: 4000,
   httpsPort: false,
   acceptMimes: ["application/json"],
-  mount: {
-    "/v1": [
-      `${rootDir}/controllers/**/**Ctrl.{ts,js}`
-    ]
-  },
+  mount: {},
   componentsScan: [
     `${rootDir}/services/*{.ts,.js}`,
     `${rootDir}/repositories/*{.ts,.js}`,
     `${rootDir}/protocols/*{.ts,.js}`
   ],
-  passport: {
-    userInfoModel: User
-  },
   typeorm: [
     {
       name: "default",
@@ -49,7 +32,7 @@ const rootDir = __dirname;
       host: "localhost",
       port: 3306,
       username: "root",
-      password: "",
+      password: "1",
       database: "barber-app",
       logging: false,
       synchronize: true,

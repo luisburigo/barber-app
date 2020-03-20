@@ -1,11 +1,24 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
 import { DefaultEntity } from "./DefaultEntity";
+import { Ramo } from "./Ramo";
 
-@Entity({name: "database"})
+enum TipoInscricao {
+    CPF,
+    CNPJ,
+}
+
+@Entity({name: "databases"})
 export class Database extends DefaultEntity {
 
-    // Ramo..
-    // Tipo pessoa.. Pessoa Fisica ou Juridica
+    @Column('enum', {name: "tipo_inscricao", enum: TipoInscricao, nullable: false})
+    tipoInscricao: TipoInscricao;
+
+    @Column({nullable: false})
+    inscricao: string;
+
+    @JoinColumn({name: "fk_database_ramo"})
+    @ManyToOne(type => Ramo)
+    ramo: Ramo;
 
     @Column({nullable: false})
     nome: string;
@@ -15,5 +28,7 @@ export class Database extends DefaultEntity {
 
     @Column({nullable: false})
     email: string;
+
+    
 
 }

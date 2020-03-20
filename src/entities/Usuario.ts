@@ -1,11 +1,18 @@
-import {Entity, Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
-import { DefaultEntity } from "./DefaultEntity";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
+import {DefaultEntity} from "./DefaultEntity";
+import { Database } from "./Database";
 
-@Entity({name: "usuario"})
+enum TipoUsuario {
+    ADMIN,
+    USUARIO
+}
+
+@Entity({name: "usuarios"})
 export class Usuario extends DefaultEntity {
 
-    // Empresa..
-    // Horarios..
+    @JoinColumn({name: "fk_usuario_database"})
+    @ManyToOne(type => Database)
+    database: Database;
 
     @Column({nullable: false})
     nome: string;
@@ -16,6 +23,9 @@ export class Usuario extends DefaultEntity {
     @Column({nullable: false, select: false})
     senha: string;
 
+    @Column('enum', {name: "tipo", enum: TipoUsuario, nullable: false})
+    tipo: TipoUsuario;
+    
     @Column({name: "data_nascimento", nullable: false} )
     dataNascimento: Date;
 
