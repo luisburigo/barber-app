@@ -19,7 +19,9 @@ const rootDir = __dirname;
   httpPort: 4000,
   httpsPort: false,
   acceptMimes: ["application/json"],
-  mount: {},
+  mount: {
+    '/api': "${rootDir}/controllers/**/*.ts"
+  },
   componentsScan: [
     `${rootDir}/services/*{.ts,.js}`,
     `${rootDir}/repositories/*{.ts,.js}`,
