@@ -1,13 +1,19 @@
 import { ControllerBase } from "./ControllerBase";
-import {UsuarioRepository} from "../repositories/UsuarioRepository";
+import { UsuarioRepository } from "../repositories/UsuarioRepository";
 import { Usuario } from "../entities/Usuario";
 import { Controller } from "@tsed/common";
+import { RelationConfig } from "src/config/RelationConfig";
 
-@Controller('/usuario')
+@Controller('/usuarios')
 export class UsuarioController extends ControllerBase<Usuario> {
-   
-    constructor(){
-        super(new UsuarioRepository());
+
+    protected relationConfig: RelationConfig;
+
+    constructor() {
+        super(UsuarioRepository);
+        this.relationConfig = {
+            findAll: ["database"]
+        };
     }
 
 }

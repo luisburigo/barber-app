@@ -2,12 +2,16 @@ import { ControllerBase } from "./ControllerBase";
 import { RamoRepository } from "../repositories/RamoRepository";
 import { Ramo } from "../entities/Ramo";
 import { Controller } from "@tsed/common";
+import { RelationConfig } from "src/config/RelationConfig";
 
-@Controller('/ramo')
+@Controller('/ramos')
 export class RamoController extends ControllerBase<Ramo> {
    
+    protected relationConfig: RelationConfig;
+
     constructor(){
-        super(new RamoRepository());
+        super(RamoRepository);
+        this.relationConfig = {};
     }
 
 }

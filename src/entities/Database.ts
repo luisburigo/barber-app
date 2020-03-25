@@ -3,8 +3,8 @@ import { DefaultEntity } from "./DefaultEntity";
 import { Ramo } from "./Ramo";
 
 enum TipoInscricao {
-    CPF,
-    CNPJ,
+    CPF = "CPF",
+    CNPJ = "CNPJ",
 }
 
 @Entity({name: "databases"})
@@ -28,7 +28,5 @@ export class Database extends DefaultEntity {
 
     @Column({nullable: false})
     email: string;
-
-    
 
 }

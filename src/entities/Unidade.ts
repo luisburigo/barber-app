@@ -3,7 +3,7 @@ import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
 import { Database } from "./Database";
 
 @Entity("unidades")
-class Unidade extends DefaultEntity {
+export class Unidade extends DefaultEntity {
 
     @JoinColumn({name: "fk_unidade_database"})
     @ManyToOne(type => Database)

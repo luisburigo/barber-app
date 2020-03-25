@@ -3,8 +3,13 @@ import {DefaultEntity} from "./DefaultEntity";
 import { Database } from "./Database";
 
 enum TipoUsuario {
-    ADMIN,
-    USUARIO
+    ADMIN = "ADMIN",
+    USUARIO = "USUARIO"
+}
+
+enum Sexo {
+    MASCULINO = "MASCULINO",
+    FEMININO = "FEMININO"  
 }
 
 @Entity({name: "usuarios"})
@@ -26,13 +31,13 @@ export class Usuario extends DefaultEntity {
     @Column('enum', {name: "tipo", enum: TipoUsuario, nullable: false})
     tipo: TipoUsuario;
     
-    @Column({name: "data_nascimento", nullable: false} )
+    @Column("date", {name: "data_nascimento", nullable: false} )
     dataNascimento: Date;
 
-    @Column({nullable: false})
-    sexo: string;
+    @Column('enum', {name: "sexo", enum: Sexo, nullable: false})
+    sexo: Sexo;
 
-    @Column()
+    @Column({ nullable: true })
     endereco: string;
 
 }
