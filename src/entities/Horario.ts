@@ -3,6 +3,7 @@ import { ManyToOne, JoinColumn, Column, OneToMany, Entity, ManyToMany } from "ty
 import { Usuario } from "./Usuario";
 import { Servico } from "./Servico";
 import { Database } from "./Database";
+import { Funcionario } from "./Funcionario";
 
 @Entity("horarios")
 export class Horario extends DefaultEntity {
@@ -20,7 +21,7 @@ export class Horario extends DefaultEntity {
 
     @JoinColumn({name: "fk_horario_funcionario"})
     @ManyToOne(type => Horario)
-    funcionario: Usuario;
+    funcionario: Funcionario;
 
     @JoinColumn({name: "fk_horario_servicos"})
     @ManyToMany(type => Servico)
