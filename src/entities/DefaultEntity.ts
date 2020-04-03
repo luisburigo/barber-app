@@ -18,5 +18,5 @@ export class DefaultEntity extends BaseEntity {
         Object.assign(this, entity);
         return this;
     }
-    // Database..
+    
 }

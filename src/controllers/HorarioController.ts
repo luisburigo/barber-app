@@ -10,7 +10,7 @@ export class HorarioController extends ControllerBase<Horario> {
     protected relationConfig: RelationConfig;
 
     constructor() {
-        super(HorarioRepository);
+        super(HorarioRepository, Horario);
         this.relationConfig = {}
     }
 

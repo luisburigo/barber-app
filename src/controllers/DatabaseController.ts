@@ -10,7 +10,7 @@ export class DabaseController extends ControllerBase<Database> {
     protected relationConfig: RelationConfig;
 
     constructor() {
-        super(DatabaseRepository);
+        super(DatabaseRepository, Database);
         
         this.relationConfig = {
             findAll: ["ramo"]

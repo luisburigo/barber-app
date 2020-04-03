@@ -25,7 +25,7 @@ const rootDir = __dirname;
   componentsScan: [
     `${rootDir}/services/*{.ts,.js}`,
     `${rootDir}/repositories/*{.ts,.js}`,
-    `${rootDir}/protocols/*{.ts,.js}`
+    `${rootDir}/protocols/*{.ts,.js}`,
   ],
   typeorm: [
     {

@@ -1,6 +1,7 @@
 import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
 import {DefaultEntity} from "./DefaultEntity";
 import { Database } from "./Database";
+import {IsOptional, IsEmail, IsNotEmpty } from "class-validator";
 
 enum TipoUsuario {
     ADMIN = "ADMIN",
@@ -19,9 +20,11 @@ export class Usuario extends DefaultEntity {
     @ManyToOne(type => Database)
     database: Database;
 
+    @IsNotEmpty()
     @Column({nullable: false})
     nome: string;
 
+    @IsEmail({}, {message: 'Campo e-mail é obrigatorio.'})
     @Column({nullable: false})
     email: string;
 

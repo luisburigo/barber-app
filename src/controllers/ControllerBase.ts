@@ -1,19 +1,22 @@
-import { Get, PathParams, Post, BodyParams, Delete, Put } from "@tsed/common";
+import { Get, PathParams, Post, BodyParams, Delete, Put, QueryParams } from "@tsed/common";
 import { DefaultEntity } from "src/entities/DefaultEntity";
 import { Repository, getCustomRepository } from "typeorm";
 import { RelationConfig } from "src/config/RelationConfig";
+import { validate } from "class-validator";
+import {BadRequest} from "ts-httpexceptions";
+import { ResultContent } from "../utils/ResultContent";
 
 export abstract class ControllerBase<T extends DefaultEntity> {
 
     private repository: Repository<T>;
     protected abstract relationConfig: RelationConfig;
 
-    constructor(repository: new () => Repository<T>) {
+    constructor(repository: new () => Repository<T>, private entity: new () => T) {
         this.repository = getCustomRepository(repository);
     }
 
     @Get("/")
-    public findAll(): Promise<T[]> {
+    public findAll(): Promise<T[]> {  
         return this.repository.find({ relations: this.relationConfig.findAll || [] });
     }
 
@@ -24,7 +27,18 @@ export abstract class ControllerBase<T extends DefaultEntity> {
 
     @Post('/')
     public async save(@BodyParams() entity) {
-        return this.repository.save(entity);
+        entity = new this.entity().convertToType(entity);
+        const validation = await validate(entity);
+
+        if(!validation.length) {
+            const entitySaved = await this.repository.save(entity);
+            return ResultContent.of()
+                    .withMessage("Salvo com sucesso!")
+                    .withContent(entitySaved)
+                    .build();   
+        }
+
+        throw new BadRequest('Verifique os valores');
     }
 
     @Delete("/:id")

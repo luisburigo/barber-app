@@ -10,7 +10,7 @@ export class RamoController extends ControllerBase<Ramo> {
     protected relationConfig: RelationConfig;
 
     constructor(){
-        super(RamoRepository);
+        super(RamoRepository, Ramo);
         this.relationConfig = {};
     }
 

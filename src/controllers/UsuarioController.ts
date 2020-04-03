@@ -10,7 +10,7 @@ export class UsuarioController extends ControllerBase<Usuario> {
     protected relationConfig: RelationConfig;
 
     constructor() {
-        super(UsuarioRepository);
+        super(UsuarioRepository, Usuario);
         this.relationConfig = {
             findAll: ["database"]
         };

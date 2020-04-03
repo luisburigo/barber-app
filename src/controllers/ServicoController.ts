@@ -10,7 +10,7 @@ export class ServicoController extends ControllerBase<Servico> {
     protected relationConfig: RelationConfig;
 
     constructor() {
-        super(ServicoRepository);
+        super(ServicoRepository, Servico);
         this.relationConfig = {};
     }
 

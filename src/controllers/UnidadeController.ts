@@ -10,7 +10,7 @@ export class UnidadeController extends ControllerBase<Unidade> {
     protected relationConfig: RelationConfig;
 
     constructor() {
-        super(UnidadeRepository);
+        super(UnidadeRepository, Unidade);
         this.relationConfig = {}
     }
 
