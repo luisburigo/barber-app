@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from "./App";
 import Router from './routes';
 
+import "./global.css"
+
 ReactDOM.render(
-  <Router />,
-  document.getElementById('root')
+    <Router/>,
+    document.getElementById('root')
 );
