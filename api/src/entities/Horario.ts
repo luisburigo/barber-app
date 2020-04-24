@@ -1,30 +1,30 @@
-import { DefaultEntity } from "./DefaultEntity";
-import { ManyToOne, JoinColumn, Column, OneToMany, Entity, ManyToMany } from "typeorm";
-import { Usuario } from "./Usuario";
-import { Servico } from "./Servico";
-import { Database } from "./Database";
-import { Funcionario } from "./Funcionario";
+import {DefaultEntity} from "./DefaultEntity";
+import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne} from "typeorm";
+import {Usuario} from "./Usuario";
+import {Servico} from "./Servico";
+import {Funcionario} from "./Funcionario";
+import {Ramo} from './Ramo';
 
 @Entity("horarios")
 export class Horario extends DefaultEntity {
 
-    @JoinColumn({name: "fk_horario_database"})
-    @ManyToOne(type => Database)
-    ramo: Database;
+    @JoinColumn({name: "ramo_id"})
+    @ManyToOne(type =>Ramo)
+    ramo: Ramo;
 
-    @JoinColumn({name: "fk_horario_usuario"})
+    @JoinColumn({name: "usuario_id"})
     @ManyToOne(type => Horario)
     usuario: Usuario;
 
     @Column({name: 'data_hora'})
     dataHora: Date;
 
-    @JoinColumn({name: "fk_horario_funcionario"})
+    @JoinColumn({name: "funcionario_id"})
     @ManyToOne(type => Horario)
     funcionario: Funcionario;
 
-    @JoinColumn({name: "fk_horario_servicos"})
     @ManyToMany(type => Servico)
+    @JoinTable({name: "horarios_servicos"})
     servicos: Servico[];
-    
+
 }

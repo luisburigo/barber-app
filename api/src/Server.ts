@@ -20,7 +20,7 @@ const rootDir = __dirname;
   httpsPort: false,
   acceptMimes: ["application/json"],
   mount: {
-    '/api': "${rootDir}/controllers/**/*.ts"
+    '/api': "${rootDir}/controllers/**/*.ts",
   },
   componentsScan: [
     `${rootDir}/services/*{.ts,.js}`,
@@ -72,7 +72,7 @@ export class Server extends ServerLoader {
       .use(bodyParser.json())
       .use(bodyParser.urlencoded({
         extended: true
-      }))
+      }));
 
     return null;
   }

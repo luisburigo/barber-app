@@ -5,16 +5,14 @@ import { Database } from "./Database";
 @Entity("unidades")
 export class Unidade extends DefaultEntity {
 
-    @JoinColumn({name: "fk_unidade_database"})
+    @JoinColumn({name: "database_id"})
     @ManyToOne(type => Database)
-    ramo: Database;
+    database: Database;
 
     @Column({nullable: false})
     nome: string;
 
     @Column({nullable: false})
     endereco: string;
-
-
 
 }

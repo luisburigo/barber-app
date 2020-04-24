@@ -16,7 +16,7 @@ export class Database extends DefaultEntity {
     @Column({nullable: false})
     inscricao: string;
 
-    @JoinColumn({name: "fk_database_ramo"})
+    @JoinColumn({name: "ramo_id"})
     @ManyToOne(type => Ramo)
     ramo: Ramo;
 

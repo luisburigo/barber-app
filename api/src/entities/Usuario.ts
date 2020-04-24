@@ -10,13 +10,13 @@ enum TipoUsuario {
 
 enum Sexo {
     MASCULINO = "MASCULINO",
-    FEMININO = "FEMININO"  
+    FEMININO = "FEMININO"
 }
 
 @Entity({name: "usuarios"})
 export class Usuario extends DefaultEntity {
 
-    @JoinColumn({name: "fk_usuario_database"})
+    @JoinColumn({name: "database_id"})
     @ManyToOne(type => Database)
     database: Database;
 
@@ -33,7 +33,7 @@ export class Usuario extends DefaultEntity {
 
     @Column('enum', {name: "tipo", enum: TipoUsuario, nullable: false})
     tipo: TipoUsuario;
-    
+
     @Column("date", {name: "data_nascimento", nullable: false} )
     dataNascimento: Date;
 

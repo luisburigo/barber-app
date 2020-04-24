@@ -5,9 +5,9 @@ import { Database } from "./Database";
 @Entity("servicos")
 export class Servico extends DefaultEntity{
 
-    @JoinColumn({name: "fk_servico_database"})
+    @JoinColumn({name: "database_id"})
     @ManyToOne(type => Database)
-    ramo: Database;
+    database: Database;
 
     @Column({nullable: false})
     nome: string;
@@ -17,7 +17,5 @@ export class Servico extends DefaultEntity{
 
     @Column({nullable: false})
     tempo: number; // Valor do tempo em segundos
-
-    //TipoFuncionario ?
 
 }

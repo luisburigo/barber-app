@@ -6,7 +6,7 @@ import { RelationConfig } from "src/config/RelationConfig";
 
 @Controller('/horarios')
 export class HorarioController extends ControllerBase<Horario> {
-    
+
     protected relationConfig: RelationConfig;
 
     constructor() {

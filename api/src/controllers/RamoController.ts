@@ -6,7 +6,7 @@ import { RelationConfig } from "src/config/RelationConfig";
 
 @Controller('/ramos')
 export class RamoController extends ControllerBase<Ramo> {
-   
+
     protected relationConfig: RelationConfig;
 
     constructor(){

@@ -1,11 +1,13 @@
-import { Get, PathParams, Post, BodyParams, Delete, Put, QueryParams } from "@tsed/common";
-import { DefaultEntity } from "src/entities/DefaultEntity";
-import { Repository, getCustomRepository } from "typeorm";
-import { RelationConfig } from "src/config/RelationConfig";
-import { validate } from "class-validator";
+import {Get, PathParams, Post, BodyParams, Delete, Put, QueryParams, UseBefore} from "@tsed/common";
+import {DefaultEntity} from "src/entities/DefaultEntity";
+import {Repository, getCustomRepository} from "typeorm";
+import {RelationConfig} from "src/config/RelationConfig";
+import {validate} from "class-validator";
 import {BadRequest} from "ts-httpexceptions";
-import { ResultContent } from "../utils/ResultContent";
+import {ResultContent} from "../utils/ResultContent";
+import {ApplicationContext} from '../ApplicationContext';
 
+@UseBefore()
 export abstract class ControllerBase<T extends DefaultEntity> {
 
     private repository: Repository<T>;
@@ -16,8 +18,8 @@ export abstract class ControllerBase<T extends DefaultEntity> {
     }
 
     @Get("/")
-    public findAll(): Promise<T[]> {  
-        return this.repository.find({ relations: this.relationConfig.findAll || [] });
+    public findAll(): Promise<T[]> {
+        return this.repository.find({relations: this.relationConfig.findAll || []});
     }
 
     @Get("/:id")
@@ -30,12 +32,12 @@ export abstract class ControllerBase<T extends DefaultEntity> {
         entity = new this.entity().convertToType(entity);
         const validation = await validate(entity);
 
-        if(!validation.length) {
+        if (!validation.length) {
             const entitySaved = await this.repository.save(entity);
             return ResultContent.of()
-                    .withMessage("Salvo com sucesso!")
-                    .withContent(entitySaved)
-                    .build();   
+                .withMessage("Salvo com sucesso!")
+                .withContent(entitySaved)
+                .build();
         }
 
         throw new BadRequest('Verifique os valores');

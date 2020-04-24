@@ -1,19 +1,17 @@
-import { DefaultEntity } from "./DefaultEntity";
-import { ManyToOne, JoinColumn, Column, Entity, ManyToMany } from "typeorm";
-import { Database } from "./Database";
-import { Servico } from "./Servico";
-import { Jornada } from "./Jornada";
+import {DefaultEntity} from "./DefaultEntity";
+import {ManyToOne, JoinColumn, Column, Entity, ManyToMany, JoinTable} from "typeorm";
+import {Database} from "./Database";
+import {Servico} from "./Servico";
 
-
-enum Sexo{
+enum Sexo {
     MASCULINO = "MASCULINO",
     USUARIO = "USUARIO"
 }
 
 @Entity("funcionarios")
-export class Funcionario extends DefaultEntity{
+export class Funcionario extends DefaultEntity {
 
-    @JoinColumn({name: "fk_funcionario_database"})
+    @JoinColumn({name: "database_id"})
     @ManyToOne(type => Database)
     database: Database;
 
@@ -32,11 +30,8 @@ export class Funcionario extends DefaultEntity{
     @Column({nullable: true})
     endereco: string;
 
-    @JoinColumn({name: "fk_funcionario_servicos"})
-    @ManyToMany(type => Servico)
+    @JoinColumn({name: "servico_id"})
+    @ManyToOne(type => Servico)
     servicos: Servico[];
 
-    @JoinColumn({name: "fk_funcionario_jornada"})
-    @ManyToOne(type => Jornada)
-    jornada: Jornada;
 }
