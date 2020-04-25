@@ -7,6 +7,7 @@ export default function Router() {
         <BrowserRouter>
             <Switch>
                 <Route component={Auth} path="/" exact/>
+                <Route component={() => <h1>Hello</h1>} path="/app"/>
             </Switch>
         </BrowserRouter>
     )

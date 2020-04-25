@@ -1,22 +1,23 @@
-import { Column, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
+import {Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
+import {dateTransformer} from "../utils/Transformers";
 
 export class DefaultEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'created_at', nullable: true })
+    @Column("datetime", {name: 'created_at', nullable: true, transformer: dateTransformer})
     createdAt: Date;
 
-    @Column({ name: 'deleted_at', nullable: true })
+    @Column("datetime", {name: 'deleted_at', nullable: true, transformer: dateTransformer})
     deletedAt: Date;
 
-    @Column({ name: 'updated_at', nullable: true })
+    @Column("datetime", {name: 'updated_at', nullable: true, transformer: dateTransformer})
     updatedAt: Date;
-    
+
     convertToType(entity) {
         Object.assign(this, entity);
         return this;
     }
-    
+
 }

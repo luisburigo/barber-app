@@ -1,16 +1,27 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useHistory} from "react-router-dom"
 import {AuthContainer, AuthLogo} from "./style";
 import {Button, Card, CardActions, CardContent, TextField} from "@material-ui/core";
+import AuthService from "../../services/AuthService";
 
 export default function Auth() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    function handleSubmit(event) {
+    const history = useHistory();
+
+    useEffect(() => {
+        if (AuthService.hasToken) {
+            toApp()
+        }
+    });
+
+    const toApp = () => history.push("/app");
+
+    async function handleSubmit(event) {
         event.preventDefault();
-        // 1º Chamar o AuthService
-        // 2º Executar o .login passando o email e senha
-        // 3º Redirecionar para o sistema
+        await AuthService.login(email, senha);
+        toApp()
     }
 
     return (

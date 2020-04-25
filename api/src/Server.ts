@@ -34,7 +34,7 @@ const rootDir = __dirname;
       host: "localhost",
       port: 3306,
       username: "root",
-      password: "1",
+      password: "",
       database: "barber-app",
       logging: false,
       synchronize: true,
@@ -42,7 +42,8 @@ const rootDir = __dirname;
         `${rootDir}/entities/*{.ts,.js}`
       ],
       migrations: [
-        `${rootDir}/migrations/*{.ts,.js}`
+        `${rootDir}/database/migrations/*{.ts,.js}`,
+        `${rootDir}/database/seeders/*{.ts,.js}`
       ],
       subscribers: [
         `${rootDir}/subscriber/*{.ts,.js}`

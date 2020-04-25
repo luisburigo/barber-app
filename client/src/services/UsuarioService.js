@@ -6,4 +6,4 @@ class UsuarioService extends Service {
     }
 }
 
-export {UsuarioService}
+export default new UsuarioService();

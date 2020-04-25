@@ -1,16 +1,27 @@
 import Axios from "axios";
 
+const {REACT_APP_URL_API: baseUrl} = process.env;
+const TOKEN_KEY = "TOKEN";
+
 class AuthService {
 
-    login(email, senha) {
-        // 1º Chama a rota de login [@Todo não implementada no back]
-        // 2º Setar token no LocalStorage
+    async login(email, senha) {
+        const {data} = await Axios.post(`${baseUrl}/auth/login`, {email, senha});
+        const {token} = data.content;
+        localStorage.setItem(TOKEN_KEY, token);
     }
 
     logout() {
-        // Remover token do LocalStorage
+        localStorage.removeItem(TOKEN_KEY);
     }
 
+    get hasToken() {
+        return !!localStorage.getItem(TOKEN_KEY);
+    }
+
+    get token() {
+        return localStorage.getItem(TOKEN_KEY);
+    }
 }
 
-export {AuthService}
+export default new AuthService;
