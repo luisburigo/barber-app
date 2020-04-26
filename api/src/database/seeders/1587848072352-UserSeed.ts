@@ -4,7 +4,7 @@ import {UsuarioRepository} from "../../repositories/UsuarioRepository";
 
 const userAdmin: Partial<Usuario> = {
     nome: "Admin",
-    email: "admin@admin.com",
+    email: "dashboard@dashboard.com",
     senha: "admin",
     dataNascimento: new Date(),
     sexo: Sexo.MASCULINO,

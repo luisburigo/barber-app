@@ -16,7 +16,7 @@ export default function Auth() {
         }
     });
 
-    const toApp = () => history.push("/app");
+    const toApp = () => history.push("/dashboard");
 
     async function handleSubmit(event) {
         event.preventDefault();
