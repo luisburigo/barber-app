@@ -10,7 +10,7 @@ enum TipoInscricao {
 @Entity({name: "databases"})
 export class Database extends DefaultEntity {
 
-    @Column('enum', {name: "tipo_inscricao", enum: TipoInscricao, nullable: false})
+    @Column('simple-enum', {name: "tipo_inscricao", enum: TipoInscricao, nullable: false})
     tipoInscricao: TipoInscricao;
 
     @Column({nullable: false})
