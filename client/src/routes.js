@@ -1,20 +1,23 @@
 import React from "react";
-import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import {Router, Switch, Route, Redirect} from "react-router-dom";
 import Auth from "./pages/Auth";
 import Dashboard from "./layouts/dashboard";
-import AuthService  from "./services/AuthService";
+import AuthService from "./services/AuthService";
+import {createBrowserHistory} from "history";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const history = createBrowserHistory();
+
+const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
         AuthService.hasToken
-        ? <Component {...props} />
-        : <Redirect to='/' />
-    )} />
-)
+            ? <Component {...props} />
+            : <Redirect to='/'/>
+    )}/>
+);
 
-export default function Router() {
+export default function Routes() {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <Switch>
                 <Route component={Auth} path="/" exact/>
                 <Route path="/dashboard/:path?" exact>
@@ -28,6 +31,8 @@ export default function Router() {
                 </Route>
                 <Route path="*" exact component={() => <h1>Não existe</h1>}/>
             </Switch>
-        </BrowserRouter>
+        </Router>
     )
 }
+
+export {history};

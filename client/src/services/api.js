@@ -1,8 +1,8 @@
 import Axios from "axios";
 import AuthService from "./AuthService";
-const {REACT_APP_URL_API} = process.env;
+import {history} from "../routes"
 
-console.log(REACT_APP_URL_API);
+const {REACT_APP_URL_API} = process.env;
 
 const api = Axios.create({
     baseURL: `${REACT_APP_URL_API}`,
@@ -31,7 +31,8 @@ api.interceptors.response.use(
         }
 
         if (response.status === 401) {
-            // asdasds
+            // @Todo emitir alerta
+            history.push('/');
         }
     }
 );
