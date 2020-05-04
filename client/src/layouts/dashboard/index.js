@@ -168,8 +168,8 @@ export default function Dashboard({children}) {
                     <ListItemIcon>
                         Icon
                     </ListItemIcon>
-                    <Link to="/dashboard/users">
-                        <ListItemText primary="Usuarios"/>
+                    <Link to="/dashboard/funcionarios">
+                        <ListItemText primary="Funcionarios"/>
                     </Link>
                 </ListItem>
                     <ListItem button>
@@ -183,9 +183,7 @@ export default function Dashboard({children}) {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer}/>
-                <Container maxWidth="lg" className={classes.container}>
-                    {children}
-                </Container>
+                {children}
             </main>
         </div>
     );
