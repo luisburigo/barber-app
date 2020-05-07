@@ -34,7 +34,7 @@ const rootDir = __dirname;
       host: "localhost",
       port: 3306,
       username: "root",
-      password: "",
+      password: "1",
       database: "barber-app",
       logging: false,
       synchronize: true,
