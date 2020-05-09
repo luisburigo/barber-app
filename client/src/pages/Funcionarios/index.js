@@ -18,12 +18,22 @@ import Funcionario from "./Funcionario";
 
 export default function Funcionarios() {
     const [funcionarios, setFuncionarios] = useState([]);
+    const [funcionario, setFuncionario] = useState(null);
     const [dialog, setDialog] = useState(false);
 
-    useEffect(async () => {
-        const {data} = await FuncionarioService.findAll();
-        setFuncionarios(data);
+    useEffect(() => {
+        loadFuncionarios();
     }, []);
+
+    const openDialog = (funcionario = null) => {
+        setDialog(true);
+        setFuncionario(funcionario);
+    };
+
+    const deleteUser = async (id) => {
+        await FuncionarioService.delete(id);
+        loadFuncionarios();
+    };
 
     const renderTable = () => {
         if (funcionarios.length) {
@@ -45,10 +55,10 @@ export default function Funcionarios() {
                             <TableCell align="left">{funcionario.dataNascimento}</TableCell>
                             <TableCell align="left">{funcionario.sexo}</TableCell>
                             <TableCell align="right">
-                                <Button color="primary" variant="outlined">
+                                <Button color="primary" variant="outlined" onClick={() =>  openDialog(funcionario)}>
                                     Editar
                                 </Button>
-                                <Button color="red" variant="outlined">
+                                <Button color="red" variant="outlined" onClick={() => deleteUser(funcionario.id)}>
                                     Excluir
                                 </Button>
                             </TableCell>
@@ -61,18 +71,20 @@ export default function Funcionarios() {
         return (<Typography variant="subtitle1"> Nenhum funcionario encontrado. </Typography>)
     };
 
-    const openDialog = () => {
-        setDialog(true)
-    };
+    const loadFuncionarios = async () => {
+        const {data} = await FuncionarioService.findAll();
+        setFuncionarios(data);
+    }
 
     const onClose = () => {
-        alert('asdasdasd');
-        setDialog(false)
+        setDialog(false);
+        loadFuncionarios();
     }
 
     return (
         <Container style={{paddingTop: '30px'}}>
-            <Funcionario open={dialog} onclose={() => onClose()}/>
+            { /* @Todo verificar useEffect */ }
+            <Funcionario open={dialog} handleClose={() => onClose()} funcionarioId={funcionario && funcionario.id}/>
             <Grid container spacing={3}>
                 <Grid item xs={6}>
                     <FormControl fullWidth>

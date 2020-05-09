@@ -1,9 +1,23 @@
-import React from "react";
-import {CardContent, Container, Dialog, DialogTitle, Grid, TextField} from "@material-ui/core";
+import React, {useState, useEffect} from "react";
+import {CardContent, Container, Dialog, DialogTitle, Grid, TextField, DialogActions,Button} from "@material-ui/core";
+import FuncionarioService from "../../../services/FuncionarioService";
 
-export default function Funcionarios({onclose, open}) {
+export default function Funcionarios({handleClose, open, funcionarioId}) {
+    const [funcionario, setFuncionario] = useState({});
 
-    const handleClose = () => onclose();
+    useEffect(async () => {
+        if(funcionarioId) {
+            const {data} = await FuncionarioService.find(funcionarioId);
+            setFuncionario(data);
+        }
+
+        return () => console.log('asdasd')
+    }, []);
+
+    const handleSubmit = async () => {
+        await FuncionarioService.create(funcionario)
+        handleClose();
+    }
 
     return (
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
@@ -17,6 +31,8 @@ export default function Funcionarios({onclose, open}) {
                                 label="Nome"
                                 id="email"
                                 variant="outlined"
+                                value={funcionario.nome}
+                                onChange={event => setFuncionario({...funcionario, nome: event.target.value})}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -25,6 +41,8 @@ export default function Funcionarios({onclose, open}) {
                                 label="E-mail"
                                 id="email"
                                 variant="outlined"
+                                value={funcionario.email}
+                                onChange={event => setFuncionario({...funcionario, email: event.target.value})}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -33,6 +51,8 @@ export default function Funcionarios({onclose, open}) {
                                 label="Data de Nascimento"
                                 id="email"
                                 variant="outlined"
+                                value={funcionario.dataNascimento}
+                                onChange={event => setFuncionario({...funcionario, dataNascimento: event.target.value})}
                             />
                         </Grid>
                         <Grid item xs={6}>
@@ -41,6 +61,8 @@ export default function Funcionarios({onclose, open}) {
                                 label="Sexo"
                                 id="email"
                                 variant="outlined"
+                                value={funcionario.sexo}
+                                onChange={event => setFuncionario({...funcionario, sexo: event.target.value})}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -48,7 +70,8 @@ export default function Funcionarios({onclose, open}) {
                                 fullWidth
                                 label="Endereço"
                                 id="email"
-                                variant="outlined"
+                                variant="outlined"value={funcionario.endereco}
+                                onChange={event => setFuncionario({...funcionario, endereco: event.target.value})}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -57,6 +80,9 @@ export default function Funcionarios({onclose, open}) {
                     </Grid>
                 </Container>
             </form>
+            <DialogActions>
+                <Button onClick={handleSubmit}>Cadastrar</Button>
+            </DialogActions>
         </Dialog>
     )
 }
