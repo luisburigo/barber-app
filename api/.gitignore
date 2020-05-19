@@ -1,3 +1,4 @@
+src/database/database.sqlite
 .env
 ### Node template
 .DS_Store

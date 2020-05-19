@@ -24,7 +24,7 @@ export class Funcionario extends DefaultEntity {
     @Column('date', {name: "data_nascimento", nullable: false})
     dataNascimento: Date;
 
-    @Column('enum', {name: "sexo", enum: Sexo, nullable: false})
+    @Column('simple-enum', {name: "sexo", enum: Sexo, nullable: false})
     sexo: Sexo;
 
     @Column({nullable: true})

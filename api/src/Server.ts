@@ -11,8 +11,10 @@ import * as compress from "compression";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
 import * as methodOverride from "method-override";
+import databaseConfig from "./database/databaseConfig";
 
 const rootDir = __dirname;
+const {ENVIROMENT} = process.env;
 
 @ServerSettings({
   rootDir,
@@ -28,27 +30,7 @@ const rootDir = __dirname;
     `${rootDir}/protocols/*{.ts,.js}`,
   ],
   typeorm: [
-    {
-      name: "default",
-      type: "mysql",
-      host: "localhost",
-      port: 3306,
-      username: "root",
-      password: "1",
-      database: "barber-app",
-      logging: false,
-      synchronize: true,
-      entities: [
-        `${rootDir}/entities/*{.ts,.js}`
-      ],
-      migrations: [
-        `${rootDir}/database/migrations/*{.ts,.js}`,
-        `${rootDir}/database/seeders/*{.ts,.js}`
-      ],
-      subscribers: [
-        `${rootDir}/subscriber/*{.ts,.js}`
-      ]
-    }
+    databaseConfig[ENVIROMENT]
   ],
   swagger: {
     path: "/api-docs",
