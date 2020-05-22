@@ -26,6 +26,8 @@ export default function Routes() {
                         <Switch>
                             <PrivateRoute path="/dashboard" exact component={() => (<h1> Início </h1>)}/>
                             <PrivateRoute path="/dashboard/funcionarios" component={Funcionarios}/>
+                            <PrivateRoute path="/dashboard/servicos" component={Funcionarios}/>
+                            <Route path="*" exact component={() => <h1>Não existe</h1>}/>
                         </Switch>
                     </Dashboard>
                 </Route>

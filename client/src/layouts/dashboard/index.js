@@ -19,7 +19,8 @@ import Container from "@material-ui/core/Container";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';*/
 
-const mainListItems = [];
+import menuItens from "./menuItens";
+
 const secondaryListItems = [];
 
 function Copyright() {
@@ -164,20 +165,23 @@ export default function Dashboard({children}) {
                     </IconButton>
                 </div>
                 <Divider/>
-                <List><ListItem button>
-                    <ListItemIcon>
-                        Icon
-                    </ListItemIcon>
-                    <Link to="/dashboard/funcionarios">
-                        <ListItemText primary="Funcionarios"/>
-                    </Link>
-                </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            Icon
-                        </ListItemIcon>
-                        <ListItemText primary="Orders"/>
-                    </ListItem></List>
+
+                <List>
+                    {menuItens.map(item => 
+                        <ListItem button key={item.name}>
+                            
+                            <ListItemIcon>
+                                {item.icon}
+                            </ListItemIcon>
+
+                            <Link to={item.link}>
+                                <ListItemText primary={item.name}/>
+                            </Link>
+
+                        </ListItem>
+                    )}
+                    
+                </List>
                 <Divider/>
                 <List>{secondaryListItems}</List>
             </Drawer>
