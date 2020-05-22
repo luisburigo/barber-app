@@ -5,6 +5,6 @@ import { Column, Entity } from "typeorm";
 export class Ramo extends DefaultEntity {
 
     @Column({nullable: false})
-    nome: string;
+    descricao: string;
 
 }
