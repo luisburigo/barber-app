@@ -2,7 +2,7 @@ import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
 import { DefaultEntity } from "./DefaultEntity";
 import { Ramo } from "./Ramo";
 
-enum TipoInscricao {
+export enum TipoInscricao {
     CPF = "CPF",
     CNPJ = "CNPJ",
 }
@@ -21,12 +21,6 @@ export class Database extends DefaultEntity {
     ramo: Ramo;
 
     @Column({nullable: false})
-    nome: string;
-
-    @Column({nullable: false})
-    celular: string;
-
-    @Column({nullable: false})
-    email: string;
+    descricao: string;
 
 }

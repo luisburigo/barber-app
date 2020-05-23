@@ -18,7 +18,7 @@
     "start": "ts-node src/index.ts",
     "start:prod": "cross-env NODE_ENV=production node dist/index.js",
     "docker:build": "yarn build && docker-compose build",
-    "deploy": "exit 0"
+    "typeorm:seeder": "ts-node ./node_modules/typeorm/cli migration:create -d ./src/database/seeders"
   },
   "author": "",
   "license": "MIT",
