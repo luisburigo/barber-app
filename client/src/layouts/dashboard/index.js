@@ -167,12 +167,12 @@ export default function Dashboard({children}) {
                 <Divider/>
 
                 <List>
-                    {menuItens.map(item => 
+                    {menuItens.map(item =>
                         <ListItem button key={item.name}>
-                            
-                            <ListItemIcon>
+
+                            {/*<ListItemIcon>
                                 {item.icon}
-                            </ListItemIcon>
+                            </ListItemIcon>*/}
 
                             <Link to={item.link}>
                                 <ListItemText primary={item.name}/>
@@ -180,7 +180,7 @@ export default function Dashboard({children}) {
 
                         </ListItem>
                     )}
-                    
+
                 </List>
                 <Divider/>
                 <List>{secondaryListItems}</List>

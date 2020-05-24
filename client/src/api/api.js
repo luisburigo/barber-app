@@ -1,5 +1,5 @@
 import Axios from "axios";
-import AuthService from "./AuthService";
+import AuthService from "../services/AuthService";
 import {history} from "../routes"
 
 const {REACT_APP_URL_API} = process.env;

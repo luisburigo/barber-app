@@ -15,19 +15,21 @@ import {
 } from "@material-ui/core";
 import FuncionarioService from "../../services/FuncionarioService";
 import Funcionario from "./Funcionario";
+import {DialogService} from "../../services/DialogService";
 
 export default function Funcionarios() {
     const [funcionarios, setFuncionarios] = useState([]);
-    const [funcionario, setFuncionario] = useState(null);
-    const [dialog, setDialog] = useState(false);
 
     useEffect(() => {
         loadFuncionarios();
     }, []);
 
-    const openDialog = (funcionario = null) => {
-        setDialog(true);
-        setFuncionario(funcionario);
+    const openDialog = async (funcionario = null) => {
+        const res = await DialogService.open(Funcionario, {funcionarioId: funcionario.id});
+
+        if (res) {
+            loadFuncionarios();
+        }
     };
 
     const deleteUser = async (id) => {
@@ -49,16 +51,16 @@ export default function Funcionarios() {
                 </TableHead>
                 <TableBody>
                     {funcionarios.map((funcionario) => (
-                        <TableRow>
+                        <TableRow key={funcionario.id}>
                             <TableCell align="left">{funcionario.nome}</TableCell>
                             <TableCell align="left">{funcionario.email}</TableCell>
                             <TableCell align="left">{funcionario.dataNascimento}</TableCell>
                             <TableCell align="left">{funcionario.sexo}</TableCell>
                             <TableCell align="right">
-                                <Button color="primary" variant="outlined" onClick={() =>  openDialog(funcionario)}>
+                                <Button color="primary" variant="outlined" onClick={() => openDialog(funcionario)}>
                                     Editar
                                 </Button>
-                                <Button color="red" variant="outlined" onClick={() => deleteUser(funcionario.id)}>
+                                <Button color="default" variant="outlined" onClick={() => deleteUser(funcionario.id)}>
                                     Excluir
                                 </Button>
                             </TableCell>
@@ -76,15 +78,8 @@ export default function Funcionarios() {
         setFuncionarios(data);
     }
 
-    const onClose = () => {
-        setDialog(false);
-        loadFuncionarios();
-    }
-
     return (
         <Container style={{paddingTop: '30px'}}>
-            { /* @Todo verificar useEffect */ }
-            <Funcionario open={dialog} handleClose={() => onClose()} funcionarioId={funcionario && funcionario.id}/>
             <Grid container spacing={3}>
                 <Grid item xs={6}>
                     <FormControl fullWidth>
