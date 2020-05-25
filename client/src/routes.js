@@ -5,6 +5,7 @@ import Dashboard from "./layouts/dashboard";
 import AuthService from "./services/AuthService";
 import {createBrowserHistory} from "history";
 import Funcionarios from "./pages/Funcionarios";
+import Servicos from "./pages/Serviços";
 
 const history = createBrowserHistory();
 
@@ -26,7 +27,7 @@ export default function Routes() {
                         <Switch>
                             <PrivateRoute path="/dashboard" exact component={() => (<h1> Início </h1>)}/>
                             <PrivateRoute path="/dashboard/funcionarios" component={Funcionarios}/>
-                            <PrivateRoute path="/dashboard/servicos" component={Funcionarios}/>
+                            <PrivateRoute path="/dashboard/servicos" component={Servicos}/>
                             <Route path="*" exact component={() => <h1>Não existe</h1>}/>
                         </Switch>
                     </Dashboard>
