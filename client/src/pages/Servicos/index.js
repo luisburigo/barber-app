@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Grid, FormControl, InputLabel, Input, Button, Table, TableHead, TableRow, TableCell, TableBody, Typography } from "@material-ui/core";
 import ServicoService from "../../services/ServicoService";
-import Servico from "./Serviço";
+import Servico from "./Servico";
 import { DialogService } from "../../services/DialogService";
 
 export default function Servicos() {
@@ -63,7 +63,7 @@ export default function Servicos() {
       )
     }
 
-    return (<Typography variant="subtitle1">Nenhum servicço encontrado.</Typography>)
+    return (<Typography variant="subtitle1">Nenhum serviço encontrado.</Typography>)
   };
 
   const loadServicos = async () => {
@@ -92,7 +92,7 @@ export default function Servicos() {
           </Grid>
 
           <Grid item xs={12}>
-            {renderTable}
+            {renderTable()}
           </Grid>
         
       </Grid>

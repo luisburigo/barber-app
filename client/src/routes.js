@@ -5,7 +5,7 @@ import Dashboard from "./layouts/dashboard";
 import AuthService from "./services/AuthService";
 import {createBrowserHistory} from "history";
 import Funcionarios from "./pages/Funcionarios";
-import Servicos from "./pages/Serviços";
+import Servicos from "./pages/Servicos";
 
 const history = createBrowserHistory();
 
