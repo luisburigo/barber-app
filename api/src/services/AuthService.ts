@@ -21,7 +21,7 @@ class AuthService {
 
     public async decodificarToken(token: string): Promise<Usuario> {
         const payload = <TokenPayload>JWT.verify(token, TOKEN_SECRET);
-        return await this.usuarioRepository.findOne(payload.id);
+        return await this.usuarioRepository.findOne(payload.id, {relations: ["database"]});
     }
 }
 

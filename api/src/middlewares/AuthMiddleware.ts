@@ -20,6 +20,7 @@ class AuthMiddleware implements IMiddleware {
 
         try {
             ApplicationContext.usuario = await this.authService.decodificarToken(token);
+            ApplicationContext.database = ApplicationContext.usuario.database;
         } catch (e) {
             return next(new Unauthorized("Token not valid."));
         }
