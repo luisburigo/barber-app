@@ -87,13 +87,13 @@ export default function Servicos() {
 
         </Grid>
 
-          <Grid item xs={6} style={{display: "flex", alignItems: "flex-end", justifyContent: "flex-end"}}>
-              <Button variant="contained" color="primary" onClick={openDialog}>Cadastrar</Button>
-          </Grid>
+        <Grid item xs={6} style={{display: "flex", alignItems: "flex-end", justifyContent: "flex-end"}}>
+            <Button variant="contained" color="primary" onClick={openDialog}>Cadastrar</Button>
+        </Grid>
 
-          <Grid item xs={12}>
-            {renderTable()}
-          </Grid>
+        <Grid item xs={12}>
+          {renderTable()}
+        </Grid>
         
       </Grid>
 

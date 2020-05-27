@@ -56,6 +56,7 @@ export default function Servicos({open, servicoId, close}){
                 fullWidth
                 label="Tempo"
                 id="tempo"
+                type="time"
                 variant="outlined"
                 value={servico.tempo}
                 onChange={event => setServico({...servico, tempo: event.target.value})}
