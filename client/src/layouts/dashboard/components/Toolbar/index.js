@@ -5,14 +5,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faBell} from "@fortawesome/free-solid-svg-icons";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
-import Toolbar from "@material-ui/core/Toolbar";
+import ToolbarComponent from "@material-ui/core/Toolbar";
 import useStyles from "./styles";
 
 export default function Toolbar({open, handleDrawerOpen}) {
     const classes = useStyles();
 
     return (
-        <Toolbar className={classes.toolbar}>
+        <ToolbarComponent className={classes.toolbar}>
             <IconButton
                 edge="start"
                 color="inherit"
@@ -30,6 +30,6 @@ export default function Toolbar({open, handleDrawerOpen}) {
                     <FontAwesomeIcon size="sm" icon={faBell}/>
                 </Badge>
             </IconButton>
-        </Toolbar>
+        </ToolbarComponent>
     )
 }
