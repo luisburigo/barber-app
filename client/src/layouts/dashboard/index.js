@@ -14,12 +14,13 @@ import {Link} from 'react-router-dom';
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Container from "@material-ui/core/Container";
+import menuItens from "./menuItens";
+import {history} from "../../routes";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars, faBell, faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 /*import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';*/
-
-import menuItens from "./menuItens";
 
 const secondaryListItems = [];
 
@@ -128,6 +129,8 @@ export default function Dashboard({children}) {
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+    const toRoute = (routeLink) => history.push(routeLink);
+
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -140,14 +143,14 @@ export default function Dashboard({children}) {
                         onClick={handleDrawerOpen}
                         className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                     >
-                        {/*<MenuIcon/>*/}
+                        <FontAwesomeIcon size="sm" icon={faBars}/>
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Dashboard
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
-                            {/* <NotificationsIcon/>*/}
+                            <FontAwesomeIcon size="sm" icon={faBell}/>
                         </Badge>
                     </IconButton>
                 </Toolbar>
@@ -161,23 +164,18 @@ export default function Dashboard({children}) {
             >
                 <div className={classes.toolbarIcon}>
                     <IconButton onClick={handleDrawerClose}>
-                        {/*<ChevronLeftIcon/>*/}
+                        <FontAwesomeIcon size="sm" icon={faChevronLeft}/>
                     </IconButton>
                 </div>
                 <Divider/>
 
                 <List>
                     {menuItens.map(item =>
-                        <ListItem button key={item.name}>
-
-                            {/*<ListItemIcon>
+                        <ListItem onClick={() => toRoute(item.link)} button key={item.name}>
+                            <ListItemIcon>
                                 {item.icon}
-                            </ListItemIcon>*/}
-
-                            <Link to={item.link}>
-                                <ListItemText primary={item.name}/>
-                            </Link>
-
+                            </ListItemIcon>
+                            <ListItemText primary={item.name}/>
                         </ListItem>
                     )}
 

@@ -30,7 +30,7 @@ export default function Routes() {
                         <Switch>
                             <PrivateRoute path="/dashboard" exact component={() => (<h1> Início </h1>)}/>
                             <PrivateRoute path="/dashboard/funcionarios" component={Funcionarios}/>
-                            <PrivateRoute path="/dashboard/servicos" component={Funcionarios}/>
+                            <PrivateRoute path="/dashboard/servicos" component={Servicos}/>
                             <PrivateRoute path="/dashboard/clientes" component={Clientes}/>
                             <PrivateRoute path="/dashboard/horarios" component={Horarios}/>
                             <PrivateRoute path="/dashboard/unidades" component={Unidades}/>
