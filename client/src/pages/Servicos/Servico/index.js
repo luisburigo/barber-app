@@ -18,12 +18,12 @@ export default function Servicos({open, servicoId, close}){
       const {data} = await ServicoService.find(servicoId);
       setServico(data);
     }
-  }
+  };
 
   const handleSubmit = async() => {
     const res = await ServicoService.create(servico);
     close(res.data);
-  }
+  };
 
   return(
     <Dialog onClose={() => close(false)} aria-labelledby="simple-dialog-title" open={open}>
