@@ -9,6 +9,7 @@ import Servicos from "./pages/Servicos";
 import Horarios from "./pages/Horarios";
 import Unidades from "./pages/Unidades";
 import Clientes from "./pages/Clientes";
+import {AuthProvider} from "./contexts/AuthContext";
 
 const history = createBrowserHistory();
 
@@ -26,17 +27,19 @@ export default function Routes() {
             <Switch>
                 <Route component={Auth} path="/" exact/>
                 <Route path="/dashboard/:path?" exact>
-                    <Dashboard>
-                        <Switch>
-                            <PrivateRoute path="/dashboard" exact component={() => (<h1> Início </h1>)}/>
-                            <PrivateRoute path="/dashboard/funcionarios" component={Funcionarios}/>
-                            <PrivateRoute path="/dashboard/servicos" component={Servicos}/>
-                            <PrivateRoute path="/dashboard/clientes" component={Clientes}/>
-                            <PrivateRoute path="/dashboard/horarios" component={Horarios}/>
-                            <PrivateRoute path="/dashboard/unidades" component={Unidades}/>
-                            <Route path="*" exact component={() => <h1>Não existe</h1>}/>
-                        </Switch>
-                    </Dashboard>
+                    <AuthProvider>
+                        <Dashboard>
+                            <Switch>
+                                <PrivateRoute path="/dashboard" exact component={() => (<h1> Início </h1>)}/>
+                                <PrivateRoute path="/dashboard/funcionarios" component={Funcionarios}/>
+                                <PrivateRoute path="/dashboard/servicos" component={Servicos}/>
+                                <PrivateRoute path="/dashboard/clientes" component={Clientes}/>
+                                <PrivateRoute path="/dashboard/horarios" component={Horarios}/>
+                                <PrivateRoute path="/dashboard/unidades" component={Unidades}/>
+                                <Route path="*" exact component={() => <h1>Não existe</h1>}/>
+                            </Switch>
+                        </Dashboard>
+                    </AuthProvider>
                 </Route>
                 <Route path="*" exact component={() => <h1>Não existe</h1>}/>
             </Switch>

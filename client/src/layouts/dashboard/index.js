@@ -10,6 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 import MenuList from "./components/MenuList";
 import useStyles from "./styles";
+import UserInfo from "./components/UserInfo";
 
 export default function Dashboard({children}) {
     const classes = useStyles();
@@ -39,6 +40,8 @@ export default function Dashboard({children}) {
                         <FontAwesomeIcon size="sm" icon={faChevronLeft}/>
                     </IconButton>
                 </div>
+                <Divider/>
+                <UserInfo/>
                 <Divider/>
                 <MenuList/>
                 <Divider/>
