@@ -6,6 +6,7 @@ import {
 import "@tsed/passport";
 import "@tsed/swagger";
 import "@tsed/typeorm";
+import "@tsed/servestatic";
 import * as bodyParser from "body-parser";
 import * as compress from "compression";
 import * as cookieParser from "cookie-parser";
@@ -21,6 +22,9 @@ const {ENVIROMENT} = process.env;
   httpPort: 4000,
   httpsPort: false,
   acceptMimes: ["application/json"],
+  statics: {
+    "/assets": `${rootDir}/../assets/`
+  },
   mount: {
     '/api': "${rootDir}/controllers/**/*.ts",
   },

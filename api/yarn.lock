@@ -272,6 +272,13 @@
     "@tsed/di" "5.44.9"
     tslib "1.11.1"
 
+"@tsed/servestatic@^5.56.0":
+  version "5.56.0"
+  resolved "https://registry.yarnpkg.com/@tsed/servestatic/-/servestatic-5.56.0.tgz#661c3a2b0f4cd3bc9bf036d7f7fb12867c4b8aca"
+  integrity sha512-ywjr6yhTtOX6XClsREatFz8GhM91C0i0chevTFstPhjtYwm4qjIarSaxhoh9K4M9YgQt3FKrxfW8Yj50VwAw7A==
+  dependencies:
+    tslib "1.11.1"
+
 "@tsed/swagger@5.44.9":
   version "5.44.9"
   resolved "https://registry.yarnpkg.com/@tsed/swagger/-/swagger-5.44.9.tgz#18c3750db163b5019b034be9a0eadb071b9c917c"
@@ -3273,7 +3280,7 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
-serve-static@1.14.1, serve-static@^1.13.1:
+serve-static@1.14.1, serve-static@^1.14.1:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/serve-static/-/serve-static-1.14.1.tgz#666e636dc4f010f7ef29970a88a674320898b2f9"
   integrity sha512-JMrvUwE54emCYWlTI+hGrGv5I8dEwmco/00EvkzIIsR7MqrHonbD9pO2MOfFnpFntl7ecpZs+3mW+XbQZu9QCg==
