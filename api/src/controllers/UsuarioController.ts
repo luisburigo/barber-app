@@ -23,8 +23,8 @@ export class UsuarioController extends ControllerBase<Usuario> {
     public getUserInfo() {
         const {usuario} = ApplicationContext;
         const {nome, email, database} = usuario;
-        const {descricao} = database;
-        return {nome, email, database: descricao}
+        const {descricao, imagem} = database;
+        return {nome, email, database: {descricao, imagem}}
     }
 
 }

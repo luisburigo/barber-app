@@ -1,6 +1,6 @@
-import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { DefaultEntity } from "./DefaultEntity";
-import { Ramo } from "./Ramo";
+import {Entity, Column, JoinColumn, ManyToOne} from "typeorm";
+import {DefaultEntity} from "./DefaultEntity";
+import {Ramo} from "./Ramo";
 
 export enum TipoInscricao {
     CPF = "CPF",
@@ -22,5 +22,8 @@ export class Database extends DefaultEntity {
 
     @Column({nullable: false})
     descricao: string;
+
+    @Column({nullable: true})
+    imagem: string
 
 }

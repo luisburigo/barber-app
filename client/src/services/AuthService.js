@@ -1,5 +1,4 @@
 import Axios from "axios";
-import {USER_INFO_KEY} from "../contexts/AuthContext";
 
 const {REACT_APP_URL_API: baseUrl} = process.env;
 const TOKEN_KEY = "TOKEN";
@@ -14,7 +13,6 @@ class AuthService {
 
     logout() {
         localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_INFO_KEY);
     }
 
     get hasToken() {

@@ -6,7 +6,8 @@ const databaseAdmin: Partial<Database> = {
     tipoInscricao: TipoInscricao.CPF,
     inscricao: '111.111.111-11',
     ramo: null,
-    descricao: 'Database Admin'
+    descricao: 'Database Admin',
+    imagem: 'https://aspomires.com.br/app/images/institucional_icon.png'
 };
 
 export class DatabaseSeeder1590103884076 implements MigrationInterface {

@@ -2,6 +2,7 @@ import {DefaultEntity} from "./DefaultEntity";
 import {ManyToOne, JoinColumn, Column, Entity, ManyToMany, JoinTable} from "typeorm";
 import {Database} from "./Database";
 import {Servico} from "./Servico";
+import {dateTransformer} from "../utils/Transformers";
 
 enum Sexo {
     MASCULINO = "MASCULINO",
@@ -21,7 +22,7 @@ export class Funcionario extends DefaultEntity {
     @Column({nullable: false})
     email: string;
 
-    @Column('date', {name: "data_nascimento", nullable: false})
+    @Column('date', {name: "data_nascimento", nullable: false, transformer: dateTransformer})
     dataNascimento: Date;
 
     @Column('simple-enum', {name: "sexo", enum: Sexo, nullable: false})
