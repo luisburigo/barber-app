@@ -1,10 +1,11 @@
 import {UsuarioRepository} from "../repositories/UsuarioRepository";
 import {BodyParams, Controller, Delete, Get, PathParams, Post, UseBefore} from "@tsed/common";
 import {AuthMiddleware} from '../middlewares/AuthMiddleware';
-import {TipoUsuario, Usuario, Sexo} from "../entities/Usuario";
+import {TipoUsuario, Usuario} from "../entities/Usuario";
 import {ApplicationContext} from "../ApplicationContext";
 import {FindConditions, IsNull} from "typeorm";
 import {ResultContent} from "../utils/ResultContent";
+import {SexoEnum} from "../entities/enums/sexoEnum";
 
 @UseBefore(AuthMiddleware)
 @Controller('/clientes')
@@ -26,7 +27,7 @@ export class ClienteController {
     @Get('/metadata')
     public getMetadata(){
         return {
-            sexoEnum: Sexo,
+            sexoEnum: SexoEnum,
         }
     }
 

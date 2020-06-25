@@ -1,13 +1,14 @@
 import {getRepository, MigrationInterface, QueryRunner} from "typeorm";
-import {Sexo, TipoUsuario, Usuario} from "../../entities/Usuario";
+import {TipoUsuario, Usuario} from "../../entities/Usuario";
 import {UsuarioRepository} from "../../repositories/UsuarioRepository";
+import {SexoEnum} from "../../entities/enums/sexoEnum";
 
 const userAdmin: Partial<Usuario> = {
     nome: "Admin",
     email: "admin@admin.com",
     senha: "admin",
     dataNascimento: new Date(),
-    sexo: Sexo.MASCULINO,
+    sexo: SexoEnum.MASCULINO,
     tipo: TipoUsuario.ADMIN,
 };
 
