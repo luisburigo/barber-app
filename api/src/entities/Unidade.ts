@@ -1,8 +1,10 @@
-import { DefaultEntity } from "./DefaultEntity";
-import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { Database } from "./Database";
+import {DefaultEntity} from "./DefaultEntity";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
+import {Database} from "./Database";
+import {EntityScope, EntityScopeEnum} from "./decorators/EntityScope";
 
 @Entity("unidades")
+@EntityScope(EntityScopeEnum.DATABASE)
 export class Unidade extends DefaultEntity {
 
     @JoinColumn({name: "database_id"})
