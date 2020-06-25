@@ -1,7 +1,7 @@
 import {UsuarioRepository} from "../repositories/UsuarioRepository";
 import {BodyParams, Controller, Delete, Get, PathParams, Post, UseBefore} from "@tsed/common";
 import {AuthMiddleware} from '../middlewares/AuthMiddleware';
-import {TipoUsuario, Usuario} from "../entities/Usuario";
+import {TipoUsuario, Usuario, Sexo} from "../entities/Usuario";
 import {ApplicationContext} from "../ApplicationContext";
 import {FindConditions, IsNull} from "typeorm";
 import {ResultContent} from "../utils/ResultContent";
@@ -21,6 +21,13 @@ export class ClienteController {
             tipo: TipoUsuario.USUARIO,
         };
         return await this.usuarioRepository.find({where: condition});
+    }
+
+    @Get('/metadata')
+    public getMetadata(){
+        return {
+            sexoEnum: Sexo,
+        }
     }
 
     @Get("/:id")

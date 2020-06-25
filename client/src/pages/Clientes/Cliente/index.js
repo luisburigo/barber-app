@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Container, Dialog, DialogActions, DialogTitle, Grid, TextField} from "@material-ui/core";
+import {Button, Container, Dialog, DialogActions, DialogTitle, Grid, TextField, InputLabel, Select, MenuItem, FormControl} from "@material-ui/core";
 import ClienteService from "../../../services/ClienteService";
 
 export default function Cliente({open, clienteId, close}) {
@@ -12,8 +12,11 @@ export default function Cliente({open, clienteId, close}) {
         senha: "",
     });
 
+    const [sexoEnum, setSexoEnum] = useState({});
+
     useEffect(() => {
         loadCliente();
+        loadGenreEnum();
     }, []);
 
     const loadCliente = async () => {
@@ -26,6 +29,11 @@ export default function Cliente({open, clienteId, close}) {
     const handleSubmit = async () => {
         const res = await ClienteService.create(cliente);
         close(res.data);
+    }
+
+    const loadGenreEnum = async () => {
+        const {data} = await ClienteService.fillEnumGenre();
+        setSexoEnum(data.sexoEnum);
     }
 
     return (
@@ -76,14 +84,21 @@ export default function Cliente({open, clienteId, close}) {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField
+                            <FormControl 
                                 fullWidth
-                                label="Sexo"
-                                id="sexo"
-                                variant="outlined"
-                                value={cliente.sexo}
-                                onChange={event => setCliente({...cliente, sexo: event.target.value})}
-                            />
+                                variant="outlined" 
+                            >
+                                <InputLabel id="demo-simple-select-outlined-label">Gênero</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    label="Gênero"
+                                    value={cliente.sexo}
+                                    onChange={event => setCliente({...cliente, sexo: event.target.value})}
+                                >
+                                    {Object.entries(sexoEnum).map(([key, value]) => <MenuItem value={key}>{value}</MenuItem>)}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={6}>
                             <TextField
