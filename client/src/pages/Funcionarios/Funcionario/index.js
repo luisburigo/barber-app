@@ -1,15 +1,19 @@
 import React, {useState, useEffect} from "react";
-import {CardContent, Container, Dialog, DialogTitle, Grid, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Input, Chip} from "@material-ui/core";
+import {Container, Dialog, DialogTitle, Grid, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Input, Chip} from "@material-ui/core";
 import FuncionarioService from "../../../services/FuncionarioService";
 import ServicoService from "../../../services/ServicoService";
+import { useTheme } from "@material-ui/core/styles";
 
 export default function Funcionarios({open, funcionarioId, close}) {
+    const theme = useTheme();
+
     const [funcionario, setFuncionario] = useState({
         nome: "",
         email: "",
         dataNascimento: "",
         sexo: "",
         endereco: "",
+        servicos: []
     });
 
     const [sexoEnum, setSexoEnum] = useState({});
@@ -45,10 +49,10 @@ export default function Funcionarios({open, funcionarioId, close}) {
     }
 
     const handleSelectedServices = (id) => {
-        const alreadySelected = setSelectedServicos.findIndex(servico => servico === id);
+        const alreadySelected = selectedServicos.findIndex(servico => servico === id);
 
         if(alreadySelected >= 0){
-            const filteredServices = setSelectedServicos.filter(service => service !== id);
+            const filteredServices = selectedServicos.filter(service => service !== id);
 
             setSelectedServicos(filteredServices);
         } else {
@@ -93,7 +97,7 @@ export default function Funcionarios({open, funcionarioId, close}) {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                        <FormControl
+                            <FormControl
                                 fullWidth
                                 variant="outlined" 
                             >
@@ -105,7 +109,7 @@ export default function Funcionarios({open, funcionarioId, close}) {
                                     value={funcionario.sexo}
                                     onChange={event => setFuncionario({...funcionario, sexo: event.target.value})}
                                 >
-                                    {Object.entries(sexoEnum).map(([key, value]) => <MenuItem value={key}>{value}</MenuItem>)}
+                                    {Object.entries(sexoEnum).map(([key, value]) => <MenuItem key={key} value={value}>{value}</MenuItem>)}
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -119,38 +123,34 @@ export default function Funcionarios({open, funcionarioId, close}) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                        <FormControl
-                            fullWidth
-                            variant="outlined" 
-                        >
-                            <InputLabel id="demo-simple-select-outlined-label">Serviços</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-mutiple-chip"
-                                multiple
-                                value={1}
-                                onChange={() => {}}
-                                input={<Input id="select-multiple-chip" />}
-                                renderValue={() => (
-                                    <div>
-                                        {selectedServicos.map((servico) => (
-                                            <Chip key={servico.id} label={servico.nome} />
-                                        ))}
-                                    </div>
-                                )}
+                            <FormControl
+                                fullWidth
+                                variant="outlined" 
                             >
-                            {/*servicos.map((servico) => (
-                                //<MenuItem key={servico.id} value={servico.nome}></MenuItem>
-                                <h1>servico.id</h1>
-                            ))*/
-                            
-                            /*names.map((name) => (
-                                <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-                                {name}
-                                </MenuItem>
-                            ))*/}
-                            </Select>
-                        </FormControl>
+                                <InputLabel id="demo-mutiple-chip-label">Serviços</InputLabel>
+                                <Select
+                                    labelId="demo-mutiple-chip-label"
+                                    id="demo-mutiple-chip"
+                                    multiple
+                                    label="Serviços"
+                                    value={funcionario.servicos}
+                                    //onChange={event => setFuncionario({...funcionario, servico: event.target.value})}
+                                    input={<Input id="select-multiple-chip" />}
+                                    renderValue={() => {}}
+                                >
+                                    {servicos.map((servico) => (
+                                        <MenuItem 
+                                            key={servico.id} 
+                                            value={servico.nome}
+                                            styles={selectedServicos.includes(servico.id) 
+                                                        ? theme.typography.fontWeightMedium 
+                                                        : theme.typography.fontWeightRegular}
+                                        >
+                                            {servico.nome}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
                 </Container>
