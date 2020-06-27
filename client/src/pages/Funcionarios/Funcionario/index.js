@@ -18,7 +18,6 @@ export default function Funcionarios({open, funcionarioId, close}) {
 
     const [sexoEnum, setSexoEnum] = useState({});
     const [servicos, setServicos] = useState([]);
-    const [selectedServicos, setSelectedServicos] = useState([]);
 
     useEffect(() => {
         loadFuncionario();
@@ -45,19 +44,7 @@ export default function Funcionarios({open, funcionarioId, close}) {
 
     const loadServices = async () => {
         const {data} = await ServicoService.findAll();
-        setServicos(data);        
-    }
-
-    const handleSelectedServices = (id) => {
-        const alreadySelected = selectedServicos.findIndex(servico => servico === id);
-
-        if(alreadySelected >= 0){
-            const filteredServices = selectedServicos.filter(service => service !== id);
-
-            setSelectedServicos(filteredServices);
-        } else {
-            setSelectedServicos([...selectedServicos, id]);
-        }
+        setServicos(data);
     }
 
     return (
@@ -123,7 +110,7 @@ export default function Funcionarios({open, funcionarioId, close}) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControl
+                            <FormControl 
                                 fullWidth
                                 variant="outlined" 
                             >
@@ -132,19 +119,24 @@ export default function Funcionarios({open, funcionarioId, close}) {
                                     labelId="demo-mutiple-chip-label"
                                     id="demo-mutiple-chip"
                                     multiple
-                                    label="Serviços"
                                     value={funcionario.servicos}
-                                    //onChange={event => setFuncionario({...funcionario, servico: event.target.value})}
-                                    input={<Input id="select-multiple-chip" />}
-                                    renderValue={() => {}}
+                                    onChange={event => setFuncionario({...funcionario, servicos: event.target.value})}
+                                    input={<Input id="select-multiple-chip"/>}
+                                    renderValue={(servicos) => (
+                                        <div>
+                                            {servicos.map((servico) => (
+                                                <Chip key={servico.id} label={servico.nome}/>
+                                            ))}
+                                        </div>
+                                    )}
                                 >
                                     {servicos.map((servico) => (
                                         <MenuItem 
                                             key={servico.id} 
-                                            value={servico.nome}
-                                            styles={selectedServicos.includes(servico.id) 
-                                                        ? theme.typography.fontWeightMedium 
-                                                        : theme.typography.fontWeightRegular}
+                                            value={servico}
+                                            style={{ fontWeight: funcionario.servicos.includes(servico) 
+                                                ? theme.typography.fontWeightBold
+                                                : theme.typography.fontWeightRegular }}
                                         >
                                             {servico.nome}
                                         </MenuItem>

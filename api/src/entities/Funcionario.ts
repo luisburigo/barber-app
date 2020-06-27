@@ -1,5 +1,5 @@
 import {DefaultEntity} from "./DefaultEntity";
-import {ManyToOne, JoinColumn, Column, Entity} from "typeorm";
+import {ManyToOne, JoinColumn, Column, Entity, ManyToMany, JoinTable} from "typeorm";
 import {Database} from "./Database";
 import {Servico} from "./Servico";
 import {SexoEnum} from "./enums/sexoEnum";
@@ -26,8 +26,9 @@ export class Funcionario extends DefaultEntity {
     @Column({nullable: true})
     endereco: string;
 
-    @JoinColumn({name: "servico_id"})
-    @ManyToOne(type => Servico)
+    @ManyToMany(type => Servico, {
+        cascade: true,
+    })
+    @JoinTable({name: "funcionarios_servicos"})
     servicos: Servico[];
-
 }

@@ -12,7 +12,7 @@ export class FuncionarioController extends ControllerBase<Funcionario> {
 
     constructor() {
         super(FuncionarioRepository, Funcionario);
-        this.relationConfig = {};
+        this.relationConfig = {find: ['servicos']};
     }
 
     @Get('/metadata')
