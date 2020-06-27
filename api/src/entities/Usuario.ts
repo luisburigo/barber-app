@@ -1,18 +1,13 @@
 import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
 import {DefaultEntity} from "./DefaultEntity";
 import {Database} from "./Database";
-import {IsOptional, IsEmail, IsNotEmpty} from "class-validator";
-import {Converter} from "@tsed/common";
+import {IsEmail, IsNotEmpty} from "class-validator";
 import {dateTransformer} from "../utils/Transformers";
+import {SexoEnum} from "./enums/sexoEnum";
 
 export enum TipoUsuario {
     ADMIN = "ADMIN",
     USUARIO = "USUARIO"
-}
-
-export enum Sexo {
-    MASCULINO = "MASCULINO",
-    FEMININO = "FEMININO"
 }
 
 @Entity({name: "usuarios"})
@@ -39,8 +34,8 @@ export class Usuario extends DefaultEntity {
     @Column("datetime", {name: "data_nascimento", nullable: false, transformer: dateTransformer})
     dataNascimento: Date;
 
-    @Column('simple-enum', {name: "sexo", enum: Sexo, nullable: false})
-    sexo: Sexo;
+    @Column('simple-enum', {name: "sexo", enum: SexoEnum, nullable: false})
+    sexo: SexoEnum;
 
     @Column({nullable: true})
     endereco: string;

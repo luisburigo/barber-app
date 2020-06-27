@@ -1,18 +1,28 @@
 import React, {useState, useEffect} from "react";
-import {CardContent, Container, Dialog, DialogTitle, Grid, TextField, DialogActions, Button} from "@material-ui/core";
+import {Container, Dialog, DialogTitle, Grid, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Input, Chip} from "@material-ui/core";
 import FuncionarioService from "../../../services/FuncionarioService";
+import ServicoService from "../../../services/ServicoService";
+import { useTheme } from "@material-ui/core/styles";
 
 export default function Funcionarios({open, funcionarioId, close}) {
+    const theme = useTheme();
+
     const [funcionario, setFuncionario] = useState({
         nome: "",
         email: "",
         dataNascimento: "",
         sexo: "",
         endereco: "",
+        servicos: []
     });
+
+    const [sexoEnum, setSexoEnum] = useState({});
+    const [servicos, setServicos] = useState([]);
 
     useEffect(() => {
         loadFuncionario();
+        loadGenreEnum();
+        loadServices();
     }, []);
 
     const loadFuncionario = async () => {
@@ -25,6 +35,16 @@ export default function Funcionarios({open, funcionarioId, close}) {
     const handleSubmit = async () => {
         const res = await FuncionarioService.create(funcionario);
         close(res.data);
+    }
+
+    const loadGenreEnum = async () => {
+        const {data} = await FuncionarioService.fillEnumGenre();
+        setSexoEnum(data.sexoEnum);
+    }
+
+    const loadServices = async () => {
+        const {data} = await ServicoService.findAll();
+        setServicos(data);
     }
 
     return (
@@ -64,14 +84,21 @@ export default function Funcionarios({open, funcionarioId, close}) {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField
+                            <FormControl
                                 fullWidth
-                                label="Sexo"
-                                id="sexo"
-                                variant="outlined"
-                                value={funcionario.sexo}
-                                onChange={event => setFuncionario({...funcionario, sexo: event.target.value})}
-                            />
+                                variant="outlined" 
+                            >
+                                <InputLabel id="demo-simple-select-outlined-label">Gênero</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    label="Gênero"
+                                    value={funcionario.sexo}
+                                    onChange={event => setFuncionario({...funcionario, sexo: event.target.value})}
+                                >
+                                    {Object.entries(sexoEnum).map(([key, value]) => <MenuItem key={key} value={value}>{value}</MenuItem>)}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -83,7 +110,39 @@ export default function Funcionarios({open, funcionarioId, close}) {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            Serviços
+                            <FormControl 
+                                fullWidth
+                                variant="outlined" 
+                            >
+                                <InputLabel id="demo-mutiple-chip-label">Serviços</InputLabel>
+                                <Select
+                                    labelId="demo-mutiple-chip-label"
+                                    id="demo-mutiple-chip"
+                                    multiple
+                                    value={funcionario.servicos}
+                                    onChange={event => setFuncionario({...funcionario, servicos: event.target.value})}
+                                    input={<Input id="select-multiple-chip"/>}
+                                    renderValue={(servicos) => (
+                                        <div>
+                                            {servicos.map((servico) => (
+                                                <Chip key={servico.id} label={servico.nome}/>
+                                            ))}
+                                        </div>
+                                    )}
+                                >
+                                    {servicos.map((servico) => (
+                                        <MenuItem 
+                                            key={servico.id} 
+                                            value={servico}
+                                            style={{ fontWeight: funcionario.servicos.includes(servico) 
+                                                ? theme.typography.fontWeightBold
+                                                : theme.typography.fontWeightRegular }}
+                                        >
+                                            {servico.nome}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
                 </Container>

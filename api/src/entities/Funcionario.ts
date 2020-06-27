@@ -2,12 +2,7 @@ import {DefaultEntity} from "./DefaultEntity";
 import {ManyToOne, JoinColumn, Column, Entity, ManyToMany, JoinTable} from "typeorm";
 import {Database} from "./Database";
 import {Servico} from "./Servico";
-import {dateTransformer} from "../utils/Transformers";
-
-enum Sexo {
-    MASCULINO = "MASCULINO",
-    USUARIO = "USUARIO"
-}
+import {SexoEnum} from "./enums/sexoEnum";
 
 @Entity("funcionarios")
 export class Funcionario extends DefaultEntity {
@@ -22,17 +17,18 @@ export class Funcionario extends DefaultEntity {
     @Column({nullable: false})
     email: string;
 
-    @Column('date', {name: "data_nascimento", nullable: false, transformer: dateTransformer})
+    @Column('date', {name: "data_nascimento", nullable: false})
     dataNascimento: Date;
 
-    @Column('simple-enum', {name: "sexo", enum: Sexo, nullable: false})
-    sexo: Sexo;
+    @Column('simple-enum', {name: "sexo", enum: SexoEnum, nullable: false})
+    sexo: SexoEnum;
 
     @Column({nullable: true})
     endereco: string;
 
-    @JoinColumn({name: "servico_id"})
-    @ManyToOne(type => Servico)
+    @ManyToMany(type => Servico, {
+        cascade: true,
+    })
+    @JoinTable({name: "funcionarios_servicos"})
     servicos: Servico[];
-
 }

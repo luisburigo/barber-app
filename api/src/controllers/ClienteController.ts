@@ -5,6 +5,7 @@ import {TipoUsuario, Usuario} from "../entities/Usuario";
 import {ApplicationContext} from "../ApplicationContext";
 import {FindConditions, IsNull} from "typeorm";
 import {ResultContent} from "../utils/ResultContent";
+import {SexoEnum} from "../entities/enums/sexoEnum";
 
 @UseBefore(AuthMiddleware)
 @Controller('/clientes')
@@ -21,6 +22,13 @@ export class ClienteController {
             tipo: TipoUsuario.USUARIO,
         };
         return await this.usuarioRepository.find({where: condition});
+    }
+
+    @Get('/metadata')
+    public getMetadata(){
+        return {
+            sexoEnum: SexoEnum,
+        }
     }
 
     @Get("/:id")
