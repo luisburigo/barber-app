@@ -5,7 +5,7 @@ import { Controller } from "@tsed/common";
 import { RelationConfig } from "src/config/RelationConfig";
 
 @Controller('/databases')
-export class DabaseController extends ControllerBase<Database> {
+export class DatabaseController extends ControllerBase<Database> {
 
     protected relationConfig: RelationConfig;
 
