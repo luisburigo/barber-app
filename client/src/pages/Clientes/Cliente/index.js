@@ -109,9 +109,6 @@ export default function Cliente({open, clienteId, close}) {
                                 onChange={event => setCliente({...cliente, endereco: event.target.value})}
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            Serviços
-                        </Grid>
                     </Grid>
                 </Container>
             </form>
