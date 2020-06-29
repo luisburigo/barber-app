@@ -2,12 +2,6 @@ import {getRepository, MigrationInterface, QueryRunner} from "typeorm";
 import {TipoUsuario, Usuario} from "../../entities/Usuario";
 import {UsuarioRepository} from "../../repositories/UsuarioRepository";
 import {SexoEnum} from "../../entities/enums/sexoEnum";
-import { Database } from "src/entities/Database";
-
-const databaseUser = () => {
-    const databaseRepository = getRepository(Database);
-    //const databaseDefault = await databaseRepository.
-}
 
 const userAdmin: Partial<Usuario> = {
     nome: "Admin",
