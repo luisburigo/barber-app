@@ -5,8 +5,10 @@ import { Database } from "./Database";
 @Entity("servicos")
 export class Servico extends DefaultEntity{
 
-    @JoinColumn({name: "database_id"})
-    @ManyToOne(type => Database)
+    @JoinColumn({name: "fk_servicos_database"})
+    @ManyToOne(type => Database, {
+        cascade: true,
+    })
     database: Database;
 
     @Column({nullable: false})

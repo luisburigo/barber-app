@@ -4,9 +4,16 @@ import {Usuario} from "./Usuario";
 import {Servico} from "./Servico";
 import {Funcionario} from "./Funcionario";
 import {Ramo} from './Ramo';
+import {Database} from './Database';
 
 @Entity("horarios")
 export class Horario extends DefaultEntity {
+
+    @JoinColumn({name: "fk_horarios_database"})
+    @ManyToOne(type => Database, {
+        cascade: true,
+    })
+    database: Database;
 
     @JoinColumn({name: "ramo_id"})
     @ManyToOne(type =>Ramo)

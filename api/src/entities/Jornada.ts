@@ -6,8 +6,10 @@ import { JornadaDia } from "./JornadaDia"
 @Entity("jornada")
 export class Jornada extends DefaultEntity{
 
-  @JoinColumn({name: "fk_jornada_database"})
-  @ManyToOne(type => Database)
+  @JoinColumn({name: "fk_jornadas_database"})
+  @ManyToOne(type => Database, {
+    cascade: true,
+  })
   datanase: Database;
 
   @Column({nullable: false})

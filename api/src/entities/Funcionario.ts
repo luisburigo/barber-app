@@ -7,8 +7,10 @@ import {SexoEnum} from "./enums/sexoEnum";
 @Entity("funcionarios")
 export class Funcionario extends DefaultEntity {
 
-    @JoinColumn({name: "database_id"})
-    @ManyToOne(type => Database)
+    @JoinColumn({name: "fk_funcionarios_database"})
+    @ManyToOne(type => Database, {
+        cascade: true,
+    })
     database: Database;
 
     @Column({nullable: false})

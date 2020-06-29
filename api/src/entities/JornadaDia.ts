@@ -17,7 +17,9 @@ enum DiasSemana{
 export class JornadaDia extends DefaultEntity{
   
   @JoinColumn({name: "fk_jorndias_database"})
-  @ManyToOne(type => Database)
+  @ManyToOne(type => Database, {
+    cascade: true
+  })
   database: Database;
 
   @Column('simple-enum', {name: "diasSemana", enum: DiasSemana,nullable: false})

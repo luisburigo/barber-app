@@ -4,8 +4,11 @@ import { Entity, JoinColumn, ManyToOne, Column } from "typeorm";
 
 @Entity("jornadadiahorario")
 export class JornadaDiaHorario extends DefaultEntity{
+ 
   @JoinColumn({name: "fk_jorndiahora_database"})
-  @ManyToOne(type => Database)
+  @ManyToOne(type => Database, {
+    cascade: true,
+  })
   database: Database;
 
   @Column({nullable: false})

@@ -13,8 +13,10 @@ export enum TipoUsuario {
 @Entity({name: "usuarios"})
 export class Usuario extends DefaultEntity {
 
-    @JoinColumn({name: "database_id"})
-    @ManyToOne(type => Database)
+    @JoinColumn({name: "fk_usuarios_database"})
+    @ManyToOne(type => Database, {
+        cascade: true,
+    })
     database: Database;
 
     @IsNotEmpty()
