@@ -4,7 +4,8 @@ import FuncionarioService from "../../../services/FuncionarioService";
 import ServicoService from "../../../services/ServicoService";
 import { useTheme } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
-import DateFnsUtils  from "@date-io/date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+import { format, parse } from "date-fns";
 
 export default function Funcionarios({open, funcionarioId, close}) {
     const theme = useTheme();
@@ -30,12 +31,13 @@ export default function Funcionarios({open, funcionarioId, close}) {
     const loadFuncionario = async () => {
         if (funcionarioId) {
             const {data} = await FuncionarioService.find(funcionarioId);
-            setFuncionario(data);
+            setFuncionario({...data, dataNascimento: parse(data.dataNascimento, 'yyyy-MM-dd', new Date())});
         }
     }
 
     const handleSubmit = async () => {
-        const res = await FuncionarioService.create(funcionario);
+        const dataNascimento = format(funcionario.dataNascimento,'yyyy-MM-dd');
+        const res = await FuncionarioService.create({...funcionario, dataNascimento });
         close(res.data);
     }
 
@@ -77,25 +79,19 @@ export default function Funcionarios({open, funcionarioId, close}) {
                         </Grid>
                         <Grid item xs={6}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <Grid 
-                                    item xs = {6}
-                                    container
-                                    justify="space-around"
-                                >
-                                    <KeyboardDatePicker
-                                        disableToolbar
-                                        variant="inline"
-                                        format="dd/MM/yyyy"
-                                        margin="normal"
-                                        id="date-picker-inline"
-                                        label="Date picker inline"
-                                        value={funcionario.dataNascimento}
-                                        onChange={event => setFuncionario({...funcionario, dataNascimento: event.target.value})}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
-                                </Grid>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="dd/MM/yyyy"
+                                    margin="normal"
+                                    id="date-picker-inline"
+                                    label="Data de nascimento"
+                                    value={funcionario.dataNascimento}
+                                    onChange={date => setFuncionario({...funcionario, dataNascimento: date})}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
                             </MuiPickersUtilsProvider>
                         </Grid>
                         <Grid item xs={6}>
