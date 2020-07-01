@@ -23,6 +23,8 @@ export class DatabaseSeeder1590103884076 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<any> {
+        const databaseRepository = getRepository(Database);
+        await databaseRepository.delete(databaseAdmin);
     }
 
 }

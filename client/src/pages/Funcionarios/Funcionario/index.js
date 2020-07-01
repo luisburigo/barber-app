@@ -3,6 +3,8 @@ import {Container, Dialog, DialogTitle, Grid, TextField, DialogActions, Button, 
 import FuncionarioService from "../../../services/FuncionarioService";
 import ServicoService from "../../../services/ServicoService";
 import { useTheme } from "@material-ui/core/styles";
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
+import DateFnsUtils  from "@date-io/date-fns";
 
 export default function Funcionarios({open, funcionarioId, close}) {
     const theme = useTheme();
@@ -10,7 +12,7 @@ export default function Funcionarios({open, funcionarioId, close}) {
     const [funcionario, setFuncionario] = useState({
         nome: "",
         email: "",
-        dataNascimento: "",
+        dataNascimento: new Date(),
         sexo: "",
         endereco: "",
         servicos: []
@@ -74,14 +76,27 @@ export default function Funcionarios({open, funcionarioId, close}) {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField
-                                fullWidth
-                                label="Data de Nascimento"
-                                id="data-nascimento"
-                                variant="outlined"
-                                value={funcionario.dataNascimento}
-                                onChange={event => setFuncionario({...funcionario, dataNascimento: event.target.value})}
-                            />
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <Grid 
+                                    item xs = {6}
+                                    container
+                                    justify="space-around"
+                                >
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="dd/MM/yyyy"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="Date picker inline"
+                                        value={funcionario.dataNascimento}
+                                        onChange={event => setFuncionario({...funcionario, dataNascimento: event.target.value})}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </Grid>
+                            </MuiPickersUtilsProvider>
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl

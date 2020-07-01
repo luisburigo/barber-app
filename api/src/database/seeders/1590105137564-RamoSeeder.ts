@@ -24,6 +24,8 @@ export class RamoSeeder1590105137564 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<any> {
+        const ramoRepository = getRepository(Ramo);
+        await ramoRepository.delete(Ramo);
     }
 
 }

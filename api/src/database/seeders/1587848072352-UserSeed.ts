@@ -22,6 +22,8 @@ export class UserSeed1587848072352 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<any> {
+        const usuarioRepository = getRepository(Usuario);
+        await usuarioRepository.delete(userAdmin);
     }
 
 }

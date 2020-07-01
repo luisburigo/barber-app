@@ -16,6 +16,8 @@ export class UnidadeSeeder1590105531112 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<any> {
+        const unidadeRepository = getRepository(Unidade);
+        await unidadeRepository.delete(unidade);
     }
 
 }
