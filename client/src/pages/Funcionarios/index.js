@@ -16,6 +16,7 @@ import {
 import FuncionarioService from "../../services/FuncionarioService";
 import Funcionario from "./Funcionario";
 import {DialogService} from "../../services/DialogService";
+import { DateUtils } from "../../utils/DateUtils";
 
 export default function Funcionarios() {
     const [funcionarios, setFuncionarios] = useState([]);
@@ -54,7 +55,7 @@ export default function Funcionarios() {
                         <TableRow key={funcionario.id}>
                             <TableCell align="left">{funcionario.nome}</TableCell>
                             <TableCell align="left">{funcionario.email}</TableCell>
-                            <TableCell align="left">{funcionario.dataNascimento}</TableCell>
+                            <TableCell align="left">{DateUtils.formatDate(funcionario.dataNascimento,'dd/MM/yyyy')}</TableCell>
                             <TableCell align="left">{funcionario.sexo}</TableCell>
                             <TableCell align="right">
                                 <Button color="primary" variant="outlined" onClick={() => openDialog(funcionario)}>

@@ -33,7 +33,7 @@ export class Usuario extends DefaultEntity {
     @Column('simple-enum', {name: "tipo", enum: TipoUsuario, nullable: false})
     tipo: TipoUsuario;
 
-    @Column("datetime", {name: "data_nascimento", nullable: false, transformer: dateTransformer})
+    @Column("date", {name: "data_nascimento", nullable: false})
     dataNascimento: Date;
 
     @Column('simple-enum', {name: "sexo", enum: SexoEnum, nullable: false})

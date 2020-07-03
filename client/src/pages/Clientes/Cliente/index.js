@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Button, Container, Dialog, DialogActions, DialogTitle, Grid, TextField, InputLabel, Select, MenuItem, FormControl} from "@material-ui/core";
 import ClienteService from "../../../services/ClienteService";
 import DateFnsUtils from "@date-io/date-fns";
-import { format, parse } from "date-fns";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
+import { DateUtils } from "../../../utils/DateUtils";
 
 export default function Cliente({open, clienteId, close}) {
     const [cliente, setCliente] = useState({
@@ -25,12 +25,14 @@ export default function Cliente({open, clienteId, close}) {
     const loadCliente = async () => {
         if (clienteId) {
             const {data} = await ClienteService.find(clienteId);
-            setCliente(data);
+            console.log(DateUtils.parseDate(data.dataNascimento, 'yyyy-MM-dd'));
+            
+            setCliente({...data, dataNascimento: DateUtils.parseDate(data.dataNascimento, 'yyyy-MM-dd')});
         }
     }
 
     const handleSubmit = async () => {
-        const dataNascimento = format(cliente.dataNascimento,'yyyy-MM-dd')
+        const dataNascimento = DateUtils.formatDate(cliente.dataNascimento,'yyyy-MM-dd');
         const res = await ClienteService.create({...cliente, dataNascimento});
         close(res.data);
     }
@@ -107,7 +109,7 @@ export default function Cliente({open, clienteId, close}) {
                                     value={cliente.sexo}
                                     onChange={event => setCliente({...cliente, sexo: event.target.value})}
                                 >
-                                    {Object.entries(sexoEnum).map(([key, value]) => <MenuItem value={key}>{value}</MenuItem>)}
+                                    {Object.entries(sexoEnum).map(([key, value]) => <MenuItem key={key}>{value}</MenuItem>)}
                                 </Select>
                             </FormControl>
                         </Grid>

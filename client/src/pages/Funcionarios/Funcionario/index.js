@@ -5,7 +5,7 @@ import ServicoService from "../../../services/ServicoService";
 import { useTheme } from "@material-ui/core/styles";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { format, parse } from "date-fns";
+import { DateUtils } from "../../../utils/DateUtils";
 
 export default function Funcionarios({open, funcionarioId, close}) {
     const theme = useTheme();
@@ -31,12 +31,14 @@ export default function Funcionarios({open, funcionarioId, close}) {
     const loadFuncionario = async () => {
         if (funcionarioId) {
             const {data} = await FuncionarioService.find(funcionarioId);
-            setFuncionario({...data, dataNascimento: parse(data.dataNascimento, 'yyyy-MM-dd', new Date())});
+            setFuncionario({...data, dataNascimento: DateUtils.parseDate(data.dataNascimento, 'yyyy-MM-dd')});
         }
     }
 
     const handleSubmit = async () => {
-        const dataNascimento = format(funcionario.dataNascimento,'yyyy-MM-dd');
+        console.log(funcionario.dataNascimento);
+        
+        const dataNascimento = DateUtils.formatDate(funcionario.dataNascimento,'yyyy-MM-dd');
         const res = await FuncionarioService.create({...funcionario, dataNascimento });
         close(res.data);
     }

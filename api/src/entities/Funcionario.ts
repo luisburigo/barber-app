@@ -3,6 +3,7 @@ import {ManyToOne, JoinColumn, Column, Entity, ManyToMany, JoinTable} from "type
 import {Database} from "./Database";
 import {Servico} from "./Servico";
 import {SexoEnum} from "./enums/sexoEnum";
+import {dateTransformer} from "../utils/Transformers";
 
 @Entity("funcionarios")
 export class Funcionario extends DefaultEntity {

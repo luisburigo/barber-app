@@ -16,6 +16,7 @@ import {
 import Cliente from "./Cliente";
 import {DialogService} from "../../services/DialogService";
 import ClienteService from "../../services/ClienteService";
+import { DateUtils } from "../../utils/DateUtils";
 
 export default function Clientes() {
     const [clientes, setClientes] = useState([]);
@@ -54,7 +55,7 @@ export default function Clientes() {
                         <TableRow key={cliente.id}>
                             <TableCell align="left">{cliente.nome}</TableCell>
                             <TableCell align="left">{cliente.email}</TableCell>
-                            <TableCell align="left">{cliente.dataNascimento}</TableCell>
+                            <TableCell align="left">{DateUtils.formatDate(cliente.dataNascimento,'dd/MM/yyyy')}</TableCell>
                             <TableCell align="left">{cliente.sexo}</TableCell>
                             <TableCell align="right">
                                 <Button color="primary" variant="outlined" onClick={() => openDialog(cliente)}>
