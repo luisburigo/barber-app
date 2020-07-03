@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {Button, Container, Dialog, DialogActions, DialogTitle, Grid, TextField, InputLabel, Select, MenuItem, FormControl} from "@material-ui/core";
 import ClienteService from "../../../services/ClienteService";
+import DateFnsUtils from "@date-io/date-fns";
+import { format, parse } from "date-fns";
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 
 export default function Cliente({open, clienteId, close}) {
     const [cliente, setCliente] = useState({
         nome: "",
         email: "",
-        dataNascimento: "",
+        dataNascimento: new Date(),
         sexo: "",
         endereco: "",
         senha: "",
@@ -27,7 +30,8 @@ export default function Cliente({open, clienteId, close}) {
     }
 
     const handleSubmit = async () => {
-        const res = await ClienteService.create(cliente);
+        const dataNascimento = format(cliente.dataNascimento,'yyyy-MM-dd')
+        const res = await ClienteService.create({...cliente, dataNascimento});
         close(res.data);
     }
 
@@ -74,14 +78,21 @@ export default function Cliente({open, clienteId, close}) {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField
-                                fullWidth
-                                label="Data de Nascimento"
-                                id="data-nascimento"
-                                variant="outlined"
-                                value={cliente.dataNascimento}
-                                onChange={event => setCliente({...cliente, dataNascimento: event.target.value})}
-                            />
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="dd/MM/yyyy"
+                                    margin="normal"
+                                    id="date-picker-outlined"
+                                    label="Data de nascimento"
+                                    value={cliente.dataNascimento}
+                                    onChange={date => setCliente({...cliente, dataNascimento: date})}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </MuiPickersUtilsProvider>
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl 
