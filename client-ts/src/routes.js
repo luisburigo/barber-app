@@ -29,22 +29,22 @@ export default function Routes() {
         <Router history={history}>
             <Switch>
                 <Route component={Auth} path="/" exact/>
-                <Route path="/dashboard/:path?" exact>
-                    <AuthProvider>
-                        <Dashboard>
-                            <Switch>
-                                <PrivateRoute path="/dashboard" exact component={() => (<h1> Início </h1>)}/>
-                                <PrivateRoute path="/dashboard/funcionarios" component={Funcionarios}/>
-                                <PrivateRoute path="/dashboard/servicos" component={Servicos}/>
-                                <PrivateRoute path="/dashboard/clientes" component={Clientes}/>
-                                <PrivateRoute path="/dashboard/horarios" component={Horarios}/>
-                                <PrivateRoute path="/dashboard/unidades" component={Unidades}/>
-                                <PrivateRoute path="/dashboard/jornadas" component={Jornadas}/>
-                                <Route path="*" exact component={() => <h1>Não existe</h1>}/>
-                            </Switch>
-                        </Dashboard>
-                    </AuthProvider>
-                </Route>
+                    <Route path="/dashboard/:path?" exact>
+                        <AuthProvider>
+                            <Dashboard>
+                                <Switch>
+                                    <PrivateRoute path="/dashboard" exact component={() => (<h1> Início </h1>)}/>
+                                    <PrivateRoute path="/dashboard/funcionarios" component={Funcionarios}/>
+                                    <PrivateRoute path="/dashboard/servicos" component={Servicos}/>
+                                    <PrivateRoute path="/dashboard/clientes" component={Clientes}/>
+                                    <PrivateRoute path="/dashboard/horarios" component={Horarios}/>
+                                    <PrivateRoute path="/dashboard/unidades" component={Unidades}/>
+                                    <PrivateRoute path="/dashboard/jornadas" component={Jornadas}/>
+                                    <Route path="*" exact component={() => <h1>Não existe</h1>}/>
+                                </Switch>
+                            </Dashboard>
+                        </AuthProvider>
+                    </Route>
                 <Route path="*" exact component={() => <h1>Não existe</h1>}/>
             </Switch>
         </Router>
